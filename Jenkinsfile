@@ -4,8 +4,13 @@ pipeline {
     environment {
         SNYK_TOKEN = credentials('snyk-token')  // store token in Jenkins credentials
     }
-
     stages {
+        stage('Run Python script') {
+          steps {
+            //running the python script
+            sh 'python3 simple-addition.py'
+          }
+        }
         stage('Checkout') {
             steps {
                 checkout scm
