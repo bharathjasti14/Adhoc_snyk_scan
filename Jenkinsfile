@@ -3,10 +3,22 @@ pipeline {
 
     environment {
         // Make sure Snyk CLI and Maven are in PATH
-        PATH = "/usr/local/bin:$PATH"
+        PATH = "/opt/homebrew/bin:$PATH"
     }
 
     stages {
+        stage('Check Tools') {
+            steps {
+                sh '''
+                    echo "PATH: $PATH"
+                    which mvn
+                    mvn -v
+                    which snyk
+                    snyk --version
+                '''
+            }
+        }
+        
         stage('Checkout') {
             steps {
                 // Checkout your code
