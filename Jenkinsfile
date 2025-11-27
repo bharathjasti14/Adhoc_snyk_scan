@@ -46,6 +46,9 @@ pipeline {
                         
                         # Monitor and send results to Snyk UI
                         snyk monitor --all-projects
+                        
+                        #SAST scan
+                        snyk code test --all-projects
                     '''
                 }
             }
