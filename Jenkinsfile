@@ -25,7 +25,7 @@ pipeline {
                   -e SNYK_TOKEN=${SNYK_TOKEN} \
                   -v \$PWD:/project \
                   -w /project \
-                  snyk/snyk:latest test
+                  snyk/snyk-cli:docker test
                 """
             }
         }
@@ -37,7 +37,7 @@ pipeline {
                   -e SNYK_TOKEN=${SNYK_TOKEN} \
                   -v \$PWD:/project \
                   -w /project \
-                  snyk/snyk:latest monitor
+                  snyk/snyk-cli:docker monitor
                 """
             }
         }
