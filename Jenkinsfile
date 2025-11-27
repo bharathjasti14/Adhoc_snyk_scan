@@ -49,6 +49,7 @@ pipeline {
                         
                         #SAST scan
                         snyk code test --all-projects
+                        snyk code monitor
                     '''
                 }
             }
