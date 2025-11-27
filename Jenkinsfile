@@ -29,7 +29,7 @@ pipeline {
         stage('Build Java Project') {
             steps {
                 // Build with Maven to resolve dependencies
-                sh 'mvn clean compile'
+                sh 'mvn clean install -DskipTests'
             }
         }
 
