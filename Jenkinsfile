@@ -21,7 +21,7 @@ pipeline {
         stage('Snyk Test') {
             steps {
                 sh """
-                docker run --rm \
+                docker run --rm --platform linux/amd64\
                   -e SNYK_TOKEN=${SNYK_TOKEN} \
                   -v \$PWD:/project \
                   -w /project \
@@ -33,7 +33,7 @@ pipeline {
         stage('Send results to Snyk UI') {
             steps {
                 sh """
-                docker run --rm \
+                docker run --rm --platform linux/amd64\
                   -e SNYK_TOKEN=${SNYK_TOKEN} \
                   -v \$PWD:/project \
                   -w /project \
