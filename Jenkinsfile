@@ -1,9 +1,9 @@
 pipeline {
     agent any
 
-    environment {
+    /*environment {
         SNYK_TOKEN = credentials('snyk-token')  // store token in Jenkins credentials
-    }
+    }*/
     stages {
         stage('Run Python script') {
           steps {
