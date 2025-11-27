@@ -1,49 +1,54 @@
 pipeline {
-    agent {
-        label 'MacAgent'
-    }
+    agent { label 'MacAgent' }
+
     environment {
-        SNYK_TOKEN = credentials('snyk-token')  // store token in Jenkins credentials
+        // Make sure Snyk CLI and Maven are in PATH
+        PATH = "/usr/local/bin:$PATH"
     }
+
     stages {
         stage('Checkout') {
             steps {
+                // Checkout your code
                 checkout scm
             }
         }
-        stage('Run Python script') {
-          steps {
-            //running the python script
-            sh 'python3 simple-addition.py'
-          }
-        }
-        stage('Snyk Scan') {
+
+        stage('Build Java Project') {
             steps {
+                // Build with Maven to resolve dependencies
+                sh 'mvn clean compile'
+            }
+        }
+
+        stage('Snyk Test & Monitor') {
+            steps {
+                // Use Jenkins credentials for Snyk token
                 withCredentials([string(credentialsId: 'snyk-token', variable: 'SNYK_TOKEN')]) {
                     sh '''
                         # Authenticate Snyk CLI
                         snyk auth $SNYK_TOKEN
-
-                        # Run a test for vulnerabilities
+                        
+                        # Test for vulnerabilities in all projects
                         snyk test --all-projects
-
-                        # Send results to Snyk UI
+                        
+                        # Monitor and send results to Snyk UI
                         snyk monitor --all-projects
                     '''
-                    }
                 }
             }
         }
-
-        post {
-            always {
-                echo 'Pipeline finished'
-            }
-            success {
-                echo 'Pipeline completed successfully!'
-            }
-            failure {
-                echo 'Pipeline failed. Check logs for details.'
-                }
-            }
     }
+
+    post {
+        always {
+            echo 'Pipeline finished'
+        }
+        success {
+            echo 'Pipeline completed successfully!'
+        }
+        failure {
+            echo 'Pipeline failed. Check logs for details.'
+        }
+    }
+}
