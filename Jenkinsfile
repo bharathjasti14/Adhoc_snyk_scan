@@ -25,10 +25,10 @@ pipeline {
                         snyk auth $SNYK_TOKEN
 
                         # Run a test for vulnerabilities
-                        snyk test
+                        snyk test --all-projects
 
                         # Send results to Snyk UI
-                        snyk monitor
+                        snyk monitor --all-projects
                     '''
                     }
                 }
