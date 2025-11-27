@@ -11,7 +11,7 @@ pipeline {
             sh 'python3 simple-addition.py'
           }
         }
-        stage('Checkout') {
+        /*stage('Checkout') {
             steps {
                 checkout scm
             }
@@ -39,6 +39,6 @@ pipeline {
                   snyk/snyk:latest monitor
                 """
             }
-        }
+        }*/
     }
 }
