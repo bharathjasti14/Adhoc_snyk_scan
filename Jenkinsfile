@@ -50,6 +50,12 @@ pipeline {
                 }
             }
         }
+        stage('Cleanup Dependencies') {
+            steps {
+                sh 'mvn dependency:purge-local-repository -DreResolve=false'
+                sh 'mvn clean'
+            }
+        }
     }
 
     post {
