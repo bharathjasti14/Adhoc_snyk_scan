@@ -1,6 +1,7 @@
 pipeline {
-    agent any
-
+    agent {
+        label 'MacAgent'
+    }
     environment {
         SNYK_TOKEN = credentials('snyk-token')  // store token in Jenkins credentials
     }
